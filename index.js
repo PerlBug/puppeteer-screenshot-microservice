@@ -1,7 +1,7 @@
 const express = require('express')
 const { takeScreenshot } = require('./screenshot');
 const app = express()
-const port = 3000
+const port = 4000
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 

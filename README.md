@@ -10,7 +10,7 @@ $ npm start
 ```
 
 
-There are 2 routes available. The default port is 3000
+There are 2 routes available. The default port is 4000
 
 | Endpoint | Usage                                                            |
 | -------- | ---------------------------------------------------------------- |
