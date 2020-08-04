@@ -8,7 +8,7 @@ async function takeScreenshot(url, width, height, waitForId, screenshotId) {
   await page.setViewport({
     width: width || 500,
     height: height || 500,
-    deviceScaleFactor: 2,
+    deviceScaleFactor: 4,
   });
   await page.goto(url, { waitUntil: 'networkidle0' });
   await page.waitForSelector(waitForId);
