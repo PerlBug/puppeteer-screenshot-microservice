@@ -10,7 +10,7 @@ async function takeScreenshot(url, width, height, waitForId, screenshotId) {
     height: height || 500,
     deviceScaleFactor: 2,
   });
-  await page.goto(url);
+  await page.goto(url, { waitUntil: 'networkidle0' });
   await page.waitForSelector(waitForId);
   const screenshot = await screenshotDOMElement(screenshotId, 0, page); //returns image file
   return screenshot;
