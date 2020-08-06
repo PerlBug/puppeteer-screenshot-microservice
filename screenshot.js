@@ -5,16 +5,24 @@ async function takeScreenshot(url, width, height, waitForId, screenshotId) {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
-  await page.setViewport({
-    width: width || 500,
-    height: height || 500,
-    deviceScaleFactor: 2, //this can be adjusted for image quality/size
-  });
-  await page.goto(url, { waitUntil: 'networkidle0' });
-  await page.waitForSelector(waitForId);
-  const screenshot = await screenshotDOMElement(screenshotId, 0, page); //returns image file
+  try {
 
-  return screenshot;
+    await page.setViewport({
+      width: width || 500,
+      height: height || 500,
+      deviceScaleFactor: 2, //this can be adjusted for image quality/size
+    });
+    await page.goto(url, { waitUntil: 'networkidle0' });
+    await page.waitForSelector(waitForId);
+    const screenshot = await screenshotDOMElement(screenshotId, 0, page); //returns image file
+    return screenshot;
+  } catch (err) {
+    throw err;
+  } finally {
+    await page.close();
+    await browser.close();
+  }
+
 }
 
 async function screenshotDOMElement(selector, padding = 0, page) {
