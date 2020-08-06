@@ -1,8 +1,15 @@
 const express = require('express')
 const { takeScreenshot } = require('./screenshot');
-const app = express()
-const port = 4000
+const app = express();
+const port = 4000;
+const { default: PQueue } = require('p-queue');
 const bodyParser = require('body-parser');
+const queue = new PQueue({ concurrency: 1 });
+
+async function queueScreenshot(url, width, height, waitForId, screenshotId) {
+  return queue.add(() => takeScreenshot(url, width, height, waitForId, screenshotId));
+}
+
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
@@ -16,7 +23,7 @@ app.post('/', async (req, res) => {
     if (!waitForId) return res.status(400).send('waitForId is required');
     if (!screenshotId) return res.status(400).send('screenshotId is required');
 
-    let screenshot = await takeScreenshot(url, width, height, waitForId, screenshotId);
+    let screenshot = await queueScreenshot(url, width, height, waitForId, screenshotId);
 
     return res.end(screenshot, 'binary');
   } catch (err) {
