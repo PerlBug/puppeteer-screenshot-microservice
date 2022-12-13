@@ -20,7 +20,7 @@
   "homepage": "https://github.com/PerlBug/puppeteer-screenshot-microservice#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "p-queue": "^6.6.0",
     "puppeteer": "^5.2.1"
   },
